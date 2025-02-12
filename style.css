@@ -1,0 +1,914 @@
+/* styling css */
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow-x: clip;
+    text-align: center;
+    font-family: 'Montserrat', arial;
+    font-size: 20px;
+    background-color: rgb(184,230,201);
+
+
+}
+
+
+@keyframes zoomin{
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.3); opacity: 0; }
+}
+.intro > * {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+
+.intro {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background-color: lightblue;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.cover-image{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url("background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    animation: zoomin 3s ease-out forwards;
+    z-index: 3;
+
+}
+
+@keyframes zoomin{
+    0% { transform: scale(1); opacity: 1; }
+    80% { transform: scale(1.3); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+.intro .container{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    animation: backgroundchange 35s ease forwards;
+    overflow: hidden;
+}
+
+.intro .titletext{
+    position: absolute;
+    top: 4%;
+    left: 2%;
+    font-size: 50px;
+    color: white;
+    text-shadow: 2px 4px 4px pink;
+
+}
+
+.intro .landscape{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 0;
+
+}
+
+.intro .potet{
+    top: 50%;
+    left: 50%;
+    animation: fallDown 6s ease-in forwards;
+    z-index: 100;
+}
+
+@keyframes fallDown {
+    from {
+        transform: translateY(-100px);
+        opacity: 0.9;
+    }
+    to {
+        transform: translateY(350px);
+        opacity: 1;
+    }
+}
+
+@keyframes backgroundchange{
+    0% { background: linear-gradient(45deg, rgb(112, 197, 231), rgb(61, 160, 218)); }
+    75% { background: linear-gradient(45deg, rgb(225, 160, 239), rgb(186, 83, 150)); }
+    100% { background: linear-gradient(45deg, rgb(19, 26, 89), rgb(95, 71, 156)); }
+}
+
+
+
+h2{
+    font-size: 50px;
+}
+
+.sections{
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+#section1{
+    width: 100%;
+    height: 100vh;
+    font-size: 20px;
+    background-color: rgb(136, 207, 162);
+}
+
+.container{
+    padding-top: 30px;
+}
+
+#section2{
+    font-size: 80px;
+    background-color: pink;
+    background: linear-gradient(rgb(136, 207, 162), lightpink);
+}
+
+#pinkflower {
+    width: 200px;
+    height: 200px;
+}
+
+.textcontainer{
+    width: 700px;
+    text-align: justify;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+
+.autorotate{
+    animation: autorotateanimation;
+    animation-timeline: view(); /*want animation to work when user scrolls with view aka make animation run while scrolling*/
+
+}
+
+@keyframes autorotateanimation{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+
+.autoshow{
+    animation: autoshowanimation both;
+    /* to not see the object by default already while scrolling 
+    just need add both to the animation - used when animation is delayed
+    then before running the animation it will take the values from the part animation
+    as default value. thanks to both when the animation is not running
+    we will not see it bc it has been assigned opcaity 0*/
+    animation-timeline: view(70% 5%); 
+    /* view first parameter specify the position which the animation should complete
+    ex set to 40% bc 100%-40%=60% so at position 60% (the height starts from 0% bottom of screen
+    to 100% top of screen) where the animation completes, 
+    the second parameter is used to reflect the position at which this animation will be started
+    dont have to start at 0% can start at 30%, so the animation wont move until its moved into a 
+    position of 30% of the screen
+    usually view(70% 5%) considered most suitable positions*/
+
+}
+
+@keyframes autoshowanimation{
+    from{
+        opacity: 0; /*initially hide with opacity 0*/
+        transform: translateY(200px) scale(0.3); /*move it a bit down with translate then scale it when animation is complete*/
+    }
+    to{
+        opacity: 1; /* show it with opacity 1 again */
+        transform: translateY(0) scale(1); /*return to its org positiona and size*/
+
+    }
+}
+
+
+.autoblur {
+    /* type 1 of blurring that returns to org as you scroll 
+    animation: autobluranimation both;
+    animation-timeline: view(50% auto); /*set to 50% for middle of the screen */ 
+    
+
+    /*type 2: blurs again when scrolling */
+    animation: autobluranimation linear both; /* add linear for distance between positions is even linearly to the animation */
+    animation-timeline: view(); /* setting to org state meaning the animation will run from 0% to 100% height aka full screen! */
+}
+
+
+@keyframes autobluranimation{
+
+    /* type 1 
+    from{
+        filter: blur(40px) /* use blur filter, with value of 40px to dim it
+    }
+    to{
+        filter: blur(0) /*when animation is completed return the blur to 0 so we can see it more clearly
+    }
+        */
+ 
+
+    /*type 2 */
+    0%{
+        filter: blur(40px); /*start with blur, animation will run from 0% to 100% */
+    }
+
+    45%, 55% {
+        /*time it takes to move from 45% to 55% position height of screen is the time to display it most clearly
+        as it will enter the center of the screen */
+        filter: blur(0px);
+    }
+
+    100%{
+        filter: blur(40px); /*end with blur again*/
+    }
+
+    
+}
+
+
+
+
+
+/*section 3 testing*/
+#section3{
+    width: 100%;
+    height: 300vh;
+    position: relative;
+    margin:0;
+}
+
+#section3 .landscape{
+    position: sticky;
+    top: 0%;
+    height: 100vh;
+}
+
+#section3 .textcontainer{
+    width: 500px;
+    position: absolute;
+    top: 40%;
+    right: 5%;
+}
+
+/*
+#section3 .landscape{
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    overflow: clip;
+}
+    */
+
+#section3 .landscape .sky{
+    width: 100%;
+    height: 100%;
+    background: lightblue;
+    position: absolute;
+    
+}
+
+#section3 .landscape .ground1{
+    width: 110%;
+    height: 40%;
+    bottom: 0;
+    position: absolute;
+    background-color: lightpink;
+}
+
+
+
+#section3 .landscape .ground3{
+    width: 140%;
+    height: 20%;
+    position: absolute;
+    bottom: -35px;
+    left: -10px;
+    background-color: rgb(141, 228, 135);
+    transform: rotateZ(-3deg)
+}
+
+
+#section3 .landscape .ground1 .tree1{
+    width: 5vmin;
+    height: 15vmin;
+    bottom: 100%;
+    left: 20%;
+    position: absolute;
+}
+
+#section3 .landscape .ground1 .tree2{
+    width: 5vmin;
+    height: 15vmin;
+    bottom: 100%;
+    left: 30%;
+    position: absolute;
+}
+
+#section3 .landscape .ground1 .tree3{
+    width: 5vmin;
+    height: 15vmin;
+    bottom: 100%;
+    left: 40%;
+    position: absolute;
+}
+
+#section3 .body{
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 90%;
+    background-color: red;
+    border-radius: 100% 100% 100%/100% 100% 50% 50%;
+    box-shadow: inset 1.5vmin -0.5vmin lightgrey;
+}
+
+#section3 .trunk{
+    width: 13%;
+    height: 10%;
+    position: absolute;
+    background: purple;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#section3 .shadow{
+    width: 50%;
+    height: 180%;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    transform: rotateZ(-104deg);
+    transform-origin: bottom center;
+    left: -7%;
+    bottom: -7%;
+}
+
+
+
+
+
+
+/** infinite slider **/
+
+#section4{
+    width: 100%;
+    height: 150vh;
+    padding-top: 200px;
+}
+
+#section4 .container{
+    width: 100%;
+    height: 100%;
+    background: rgb(123, 198, 158);
+    
+}
+
+
+
+.slider{
+    width: 80%;
+    margin:auto;
+    height: var(--height);
+    overflow: clip;
+    mask-image: linear-gradient(
+        to right,
+        transparent,
+        #000 10% 90%, /* % increases more visible display */
+        transparent
+    );
+}
+.slider .list{
+    display: flex; /* puts the items on the same row */
+    width: 100%; /* widht of 100% slider */
+    min-width: calc(var(--width) * var(--quantity));
+    /*min width is width value of each item * total items so image is not distorted */
+    position: relative;
+}
+.slider .list .item{
+    width: var(--width);
+    height: var(--height);
+    position: absolute;
+    left: 100%;
+    animation: autoRun 12s linear infinite; /*run animatoin within 10s continously repeat -> slider effect*/
+    transition: filter 0.5s; /*add transition filter to make color transition effect smoother*/
+    animation-delay: calc( (12s / var(--quantity)) * (var(--position) - 1) - 10s)!important;
+}
+.slider .list .item img{
+    width: 100%; /*100% width of the width of the item which is 100px*/
+    border-radius: 5px;
+}
+@keyframes autoRun{
+    from{
+        left: 100%; /*intially it will be 100% from left */
+    }to{
+        left: calc(var(--width) * -1); /* then move to the left of the list */
+    }
+}
+.slider:hover .item{
+    animation-play-state: paused!important;
+    /* add !Important so no conflict occur so that the pause value always take priority*/
+    filter: grayscale(1);
+    /*when hovering over the slider, items will be edited to gray color*/
+}
+.slider .item:hover{
+    filter: grayscale(0);
+    /*but for any item that is hovered over the item will retain its original color*/
+}
+
+
+
+
+
+/* hardcoding landscape with trees */
+
+#section8{
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+#section8 .landscape{
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    overflow: clip;
+}
+
+#section8 .landscape .sky{
+    width: 100%;
+    height: 100%;
+    background: lightblue;
+    
+}
+
+#section8 .landscape .ground1{
+    width: 110%;
+    height: 40%;
+    bottom: 0;
+    position: absolute;
+    background-color: lightpink;
+}
+
+#section8 .landscape .ground2{
+    width: 140%;
+    height: 20%;
+    position: absolute;
+    bottom: 0;
+    left: -10px;
+    background-color: lightgreen;
+    transform: rotateZ(5deg)
+}
+
+#section8 .landscape .ground3{
+    width: 140%;
+    height: 20%;
+    position: absolute;
+    bottom: -35px;
+    left: -10px;
+    background-color: lightyellow;
+    transform: rotateZ(-3deg)
+}
+
+
+#section8 .landscape .ground1 .tree1{
+    width: 5vmin;
+    height: 15vmin;
+    bottom: 100%;
+    left: 20%;
+    position: absolute;
+}
+
+#section8 .landscape .ground1 .tree2{
+    width: 5vmin;
+    height: 15vmin;
+    bottom: 100%;
+    left: 30%;
+    position: absolute;
+}
+
+#section8 .landscape .ground1 .tree3{
+    width: 5vmin;
+    height: 15vmin;
+    bottom: 100%;
+    left: 40%;
+    position: absolute;
+}
+
+#section8 .body{
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 90%;
+    background-color: red;
+    border-radius: 100% 100% 100%/100% 100% 50% 50%;
+    box-shadow: inset 1.5vmin -0.5vmin lightgrey;
+}
+
+#section8 .trunk{
+    width: 13%;
+    height: 10%;
+    position: absolute;
+    background: purple;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#section8 .shadow{
+    width: 50%;
+    height: 180%;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    transform: rotateZ(-104deg);
+    transform-origin: bottom center;
+    left: -7%;
+    bottom: -7%;
+}
+
+
+
+/* polaroid pictures with butterflies or smth*/
+
+#section9{
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    background: lightyellow;
+}
+
+#section9 .container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#section9 .left{
+    width: 30%;
+    height: 100%;
+    padding: 20px;
+}
+
+#section9 .figure1{
+    width: 200px;
+    height: 300px;
+    transform: rotate(-10deg);
+    padding: 20px;
+}
+
+#section9 .figure2{
+    width: 200px;
+    height: 300px;
+    transform: rotate(10deg);
+    padding: 20px;
+    padding-left: 50px;
+} 
+
+#section9 .left img{
+    width: 200px;
+    height: auto;
+    border: 10px solid white;
+    border-bottom-width: 35px;
+    box-shadow: 10px 10px grey;
+}
+
+#section9 .box{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 200px;
+    left: -500px;
+    z-index: 12;
+    animation: circle 15s alternate infinite;
+}
+#section9 #butterfly{
+    border: none;
+    border-bottom-width: none;
+    box-shadow: none;
+    transform-origin: center center;
+    animation: fluttering 500ms alternate infinite;
+}
+
+
+@keyframes circle {
+    from{ 
+        transform: rotate(0deg) translateX(150px) rotate(0deg); 
+    }
+    to{transform: rotate(360deg) translateX(150px) rotate(-360deg); 
+    }
+}
+
+
+@keyframes fluttering{
+    from{
+        transform: rotateX(0);
+    }
+    to{
+        transform: rotateX(80deg);
+    }
+}
+
+
+#section9 .right{
+    width: 40%;
+    height: 100%;
+    padding: 30px;
+    text-align: justify;
+}
+
+
+
+
+
+/*sky with clouds*/
+
+
+
+#section10{
+    width: 100%;
+    height: 50vh;
+    position: relative;
+}
+
+#section10 .landscape1{
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: clip;
+}
+
+#section10 .sky{
+    width: 100%;
+    height: 100%;
+    background: lightblue;
+    
+}
+
+#section10 .clouds1{
+    position: absolute;
+    top: 68%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+#section10 .clouds2{
+    position: absolute;
+    top: 30%;
+    left: 20%;
+    transform: translate(-50%,-50%);
+}
+
+#section10 .clouds3{
+    position: absolute;
+    top: 30%;
+    left: 80%;
+    transform: translate(-50%,-50%);
+}
+
+#section10 .cloud{
+    background: white;
+    width: 300px;
+    height: 100px;
+    border-radius: 150px;
+    box-shadow: 10px 10px rgba(0, 0, 0, 0.2);
+    animation: movingcloud 7s infinite;
+}
+
+#section10 .cloud:after{
+    content: '';
+    background: rgba(255,255, 255);
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    top: -50px;
+    left: 50px;
+}
+
+#section10 .cloud:before{
+    content: '';
+    background: rgba(255,255, 255);
+    position: absolute;
+    width: 170px;
+    height: 150px;
+    border-radius: 50%;
+    top: -90px;
+    right: 40px;
+}
+
+@keyframes movingcloud{
+    0%{
+        transform: translateX(0);
+    }
+    50%{
+        transform: translateX(-40px)
+    }
+}
+
+
+
+/* svg landscape*/
+#section11 {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    background-color: lightblue;
+    background-image: radial-gradient(lightblue lightpink);
+}
+
+#section11 .container{
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    overflow: hidden;   
+    bottom: 0;
+    left: 0;
+}
+
+/* falling potato add shadow to it */
+
+#section11 .anime{
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: clip; 
+}
+
+#section11 figure{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 200px;
+    left: -100px;
+    animation: fallingdown linear both;
+    animation-timeline: view();
+    animation-range: entry 1% cover 30%;
+    
+} 
+
+@keyframes testing{
+    from{
+        transform: rotate(120deg);
+    }
+    to{
+        transform: rotate(30deg);
+    }
+}
+
+
+#section11 .img{
+    position: absolute;
+    width: 90%;
+    height: 90%;
+}
+
+@keyframes fallingdown{
+    0%{transform: translateY(-500px)};
+    100%{transform: translateY(500px)};
+}
+
+#section11 .textcontainer{
+    width: 400px;
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    background-color: rgba(247, 247, 247, 0.7);
+    padding: 10px;
+}
+
+
+
+/*testing again falling potato but in the sea maybe*/
+
+
+#section12 {
+    width: 100%;
+    height: 400vh;
+    background-color: lightpink;
+}
+
+#section12 .container{
+    width: 100%;
+    height: 100%;
+    overflow: clip;
+    position: relative;
+    background: rgb(80,35,181);
+    background: rgb(82,20,221);
+    background: linear-gradient(0deg, rgb(44, 10, 117) 0%, rgba(6,19,116,1) 28%, 
+rgba(27,87,199,1) 58%, rgba(81,203,255,1) 100%);
+
+}
+
+#section12 #text1, #text2{
+    position: relative;
+    z-index: 100;
+    color: white;
+    margin-top: 200px;
+    margin-bottom: 500px;
+}
+
+#section12 .potet{
+    height: 300px;
+    width: 300px;
+    position: sticky;
+    top: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    animation: imgswitch 1s ease infinite;
+    z-index: 50;
+}
+
+#section .fish{
+    height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    
+}
+
+#section12 .fish img{
+    position: relative;
+    width: 200px;
+    height: auto;
+    z-index: 100;
+}
+
+#section12 .fishimg{
+    animation: fromrighttoleft linear forwards;
+    animation-timeline: view();
+    animation-range: entry 0 cover 80%;
+}
+
+
+#section12 .fishimg2{
+    animation: fromrighttoleft linear forwards;
+    animation-timeline: view();
+    animation-range: entry 0 cover 80%;
+}
+
+
+
+@keyframes fromrighttoleft{
+    0%{
+        transform: translateX(400%);
+    }
+    20%{
+        transform: translateX(50%);
+    }40%{
+        transform: translateX(0%);
+    }60%{
+        transform: translateX(-100%);
+    }
+    80%{
+        transform: translateX(-200%);
+    }100%{
+        transform: translateX(-500%);
+    }
+}
+
+
+
+@keyframes imgswitch{
+    0%{
+        background-image: url('potetparaply1.png')
+    }
+    50% {
+        background-image: url('potetparaply2.png')
+    }
+    100% {
+        background-image: url('potetparaply1.png')
+    }
+}
+
+
+
+
+
