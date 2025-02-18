@@ -1,23 +1,108 @@
 /* styling css */
 
 /* The animation code */
-@keyframes example {
-    0%   {background-color:red; left:0px; top:0px;}
-    25%  {background-color:yellow; left:200px; top:0px;}
-    50%  {background-color:blue; left:200px; top:200px;}
-    75%  {background-color:green; left:0px; top:200px;}
-    100% {background-color:red; left:0px; top:0px;}
-  }
-  
-  /* The element to apply the animation to */
-  div {
-    width: 100px;
-    height: 100px;
+body {
+    margin: 0;
+    padding: 0;
+    height: 200vh;
+    width: 100%;
+    overflow-x: clip;
+    text-align: center;
+    font-family: 'Montserrat', arial;
+    font-size: 20px;
+    background-color: black;
+}
+
+#background1 {
+    position: fixed; /* Keeps the background stationary */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: url('img/Backdrop1.svg') no-repeat center center/cover;
+    z-index: -1;
+    animation: fade-background linear both;
+    animation-timeline: scroll(root);
+    animation-range: 10vh 50vh; /* Background fades between these scroll positions */
+}
+
+#background2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -2;
+    background: url('img/Backdrop2.png') no-repeat center center/cover; /* Ensures fit */
+}
+
+@keyframes fade-background {
+    from {
+      opacity: 1;
+      background: url('img/Backdrop1.svg') no-repeat center center/cover;
+    }
+    to {
+      opacity: 1;
+      background: url('img/Backdrop2.png') no-repeat center center/cover;
+    }
+}
+
+#credentialsContainer {
+    width: 100%;
+    height: 100vh; /* Full screen height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
-    background-color: red;
-    animation-name: example;
-    animation-duration: 4s;
+}
+
+.scroll-image {
+    width: 50vw; /* Start size */
+    display: block;
+    transition: transform 0.1s linear;
+    animation: shrink linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 50vh; /* Controls when it shrinks */
   }
+
+@keyframes shrink {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(0.5);
+    }
+}
+
+.autoshow{
+    animation: autoshowanimation both;
+    /* to not see the object by default already while scrolling 
+    just need add both to the animation - used when animation is delayed
+    then before running the animation it will take the values from the part animation
+    as default value. thanks to both when the animation is not running
+    we will not see it bc it has been assigned opcaity 0*/
+    animation-timeline: view(70% 5%); 
+    /* view first parameter specify the position which the animation should complete
+    ex set to 40% bc 100%-40%=60% so at position 60% (the height starts from 0% bottom of screen
+    to 100% top of screen) where the animation completes, 
+    the second parameter is used to reflect the position at which this animation will be started
+    dont have to start at 0% can start at 30%, so the animation wont move until its moved into a 
+    position of 30% of the screen
+    usually view(70% 5%) considered most suitable positions*/
+
+}
+
+@keyframes autoshowanimation{
+    from{
+        opacity: 0; /*initially hide with opacity 0*/
+        transform: translateY(200px) scale(0.3); /*move it a bit down with translate then scale it when animation is complete*/
+    }
+    to{
+        opacity: 1; /* show it with opacity 1 again */
+        transform: translateY(0) scale(1); /*return to its org positiona and size*/
+
+    }
+}
 
 @keyframes zoomin{
     0% { transform: scale(1); opacity: 1; }
@@ -911,8 +996,3 @@ rgba(27,87,199,1) 58%, rgba(81,203,255,1) 100%);
         background-image: url('potetparaply1.png')
     }
 }
-
-
-
-
-
