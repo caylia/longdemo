@@ -92,6 +92,7 @@ body {
 
 }
 
+
 @keyframes autoshowanimation{
     from{
         opacity: 0; /*initially hide with opacity 0*/
@@ -108,6 +109,57 @@ body {
     0% { transform: scale(1); opacity: 1; }
     100% { transform: scale(1.3); opacity: 0; }
 }
+
+
+
+#ctbackground .container{
+    height: 100vh;
+    width: 100%;
+    
+}
+
+#ctbackground  .container .background{
+    height: 100%;
+    width: 100%;
+    animation: changingbg 5s linear infinite;
+}
+
+
+@keyframes changingbg{
+    0%{
+        background-image: url('img/ezgif-frame-008.png')
+    }
+    20% {
+        background-image: url('img/ezgif-frame-009.png')
+    }
+    30% {
+        background-image: url('img/ezgif-frame-010.png')
+    }
+    40% {
+        background-image: url('img/ezgif-frame-011.png')
+    }
+    50% {
+        background-image: url('img/ezgif-frame-012.png')
+    }
+    60% {
+        background-image: url('img/ezgif-frame-013.png')
+    }
+    70% {
+        background-image: url('img/ezgif-frame-014.png')
+    }
+    80% {
+        background-image: url('img/ezgif-frame-015.png')
+    }
+    90% {
+        background-image: url('img/ezgif-frame-016.png')
+    }
+    100% {
+        background-image: url('img/ezgif-frame-016.png')
+    }
+}
+
+
+
 .intro > * {
     margin-top: 0;
     margin-bottom: 0;
@@ -232,6 +284,7 @@ h2{
     text-align: justify;
     margin-left: auto;
     margin-right: auto;
+    
     
 }
 
